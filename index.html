@@ -303,7 +303,7 @@
       const orderItems = Object.values(cart).map(item => ({ name: item.name, quantity: item.quantity }));
       const orderData = { name, email, table, order: orderItems };
       // Replace the URL with your backend or Google Script URL for order processing
-      const backendURL = "https://script.google.com/macros/s/AKfycbyMe9XcYmZR0Vtb3Si9Q2OpODPsbUJiiAe4GCL8dRQN8YvNQwhS792qcS0VeOPbYLcdow/exec";
+      const backendURL = "https://script.google.com/macros/s/AKfycbzox2MacGW6hJVGleoldHW9aKiEflFj-1owHM0Jj1Tkdl4N8ptv4VMeS4ikn03k-2etDA/exec";
       fetch(backendURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
