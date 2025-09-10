@@ -323,7 +323,7 @@
       const orderData = { name, email, table, order: orderItems };
 
       // Replace the URL with your backend or Google Script URL for order processing
-      const backendURL = "YOUR_GOOGLE_SCRIPT_OR_BACKEND_URL";
+      const backendURL = "https://script.google.com/macros/s/AKfycbxPxx8vIgWv0frjG5LIQ7eM__dVewNLXEbXC-BWOQzqZeawlWSHI47WS0anSupazoeTYw/exec";
 
       fetch(backendURL, {
         method: "POST",
