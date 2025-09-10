@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WallEats - Futuristic Dining Experience</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0; 
+      font-family: 'Poppins', sans-serif;
+      background: #0a0f2f;
+      color: #cfdfff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: #121a5b;
+      padding: 20px;
+      box-shadow: 0 0 15px #1a28a0;
+      font-family: 'Orbitron', monospace;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+    header h1 {
+      color: #00ffff;
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 3px;
+      font-size: 1.8em;
+    }
+    nav a {
+      color: #66ffff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 500;
+      font-size: 1.1em;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+    nav a:hover {
+      color: #00ffff;
+      text-shadow: 0 0 8px #00ffff;
+    }
+
+    main {
+      padding: 140px 20px 80px;
+      max-width: 1200px;
+      margin: auto;
+      flex-grow: 1;
+    }
+    section {
+      margin-bottom: 80px;
+    }
+    h2 {
+      border-bottom: 2px solid #00ffff;
+      padding-bottom: 8px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .intro {
+      font-size: 1.2em;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      color: #a0b0ff;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .menu-card {
+      background: #192254;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 15px #0057ff44;
+      border: 1px solid #0057ff80;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .menu-card:hover {
+      box-shadow: 0 0 25px #00ffff;
+      transform: translateY(-8px);
+    }
+    .menu-card img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 12px #00ffff88;
+    }
+    .menu-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.3em;
+      color: #00ffff;
+      font-family: 'Orbitron', monospace;
+    }
+    .menu-card p {
+      margin: 0 0 15px;
+      color: #b0c8ff;
+    }
+    .menu-card button {
+      background: #00ffff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: #111;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00ffffaa;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    .menu-card button:hover {
+      background-color: #00c3c3;
+      box-shadow: 0 0 20px #00c3c3bb;
+    }
+
+    #order-list {
+      list-style: none;
+      padding-left: 0;
+      max-width: 400px;
+      margin: 20px auto;
+      color: #a0d8ff;
+      font-size: 1.1em;
+    }
+    #order-list li {
+      margin-bottom: 8px;
+    }
+
+    #total-price {
+      text-align: center;
+      font-weight: bold;
+      color: #00ffff;
+      font-size: 1.3em;
+      margin-top: 10px;
+    }
+
+    form input, form button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 1em;
+    }
+    form input {
+      background: #192254;
+      color: #cfdfff;
+    }
+    form input::placeholder {
+      color: #809ccf;
+    }
+    form button {
+      background-color: #00ffff;
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00ffffaa;
+      transition: background-color 0.3s ease;
+    }
+    form button:hover {
+      background-color: #00c3c3;
+      box-shadow: 0 0 20px #00c3c3bb;
+    }
+
+    footer {
+      background: #121a5b;
+      color: #66ffff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      letter-spacing: 1.4px;
+      box-shadow: 0 -4px 10px #0057ff44;
+      margin-top: auto;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.4em;
+      }
+      nav a {
+        font-size: 1em;
+        margin-left: 15px;
+      }
+
+      main {
+        padding: 100px 15px 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WallEats</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#order">Order</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <section id="about">
+      <h2>Welcome to Wall-Eats</h2>
+      <p class="intro">
+        Wall-Eats is an innovative AI-powered waiter robot designed to revolutionize the dining experience in cafes and restaurants. Our robot efficiently delivers food from kitchen to table with precision and safety.
+      </p>
+      <p class="intro">
+        Integrating line-following sensors, IR detection, and programmable paths, Wall-Eats ensures precise, hygienic, and touch-free food delivery. Sit back, relax, and enjoy futuristic dining.
+      </p>
+    </section>
+
+    <section id="menu">
+      <h2>Our Menu</h2>
+      <div class="menu-grid"></div>
+    </section>
+
+    <section id="order">
+      <h2>Place Your Order</h2>
+      <ul id="order-list"></ul>
+      <div id="total-price">Total: ₹0</div>
+      <form id="order-form">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="number" name="table" placeholder="Table Number" required min="1" />
+        <button type="submit">Submit Order</button>
+      </form>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>For more information or support, get in touch at <a href="mailto:support@walleats.com" style="color:#00ffff;">support@walleats.com</a></p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 WallEats. All rights reserved.
+  </footer>
+
+  <script>
+    const menu = [
+      { id: 1, name: "Spicy Ramen", price: 120, desc: "A flavorful bowl with a kick.", img: "https://via.placeholder.com/250x150?text=Spicy+Ramen" },
+      { id: 2, name: "Veggie Pizza", price: 180, desc: "Fresh veggies on a crispy crust.", img: "https://via.placeholder.com/250x150?text=Veggie+Pizza" },
+      { id: 3, name: "Classic Burger", price: 90, desc: "Juicy beef patty with fresh toppings.", img: "https://via.placeholder.com/250x150?text=Classic+Burger" },
+      { id: 4, name: "Caesar Salad", price: 110, desc: "Fresh romaine with creamy dressing.", img: "https://via.placeholder.com/250x150?text=Caesar+Salad" },
+      { id: 5, name: "Mango Smoothie", price: 60, desc: "Sweet tropical mango blend.", img: "https://via.placeholder.com/250x150?text=Mango+Smoothie" },
+      { id: 6, name: "Chocolate Cake", price: 80, desc: "Rich and moist chocolate dessert.", img: "https://via.placeholder.com/250x150?text=Chocolate+Cake" }
+    ];
+
+    let cart = {};
+
+    function renderMenu() {
+      const container = document.querySelector(".menu-grid");
+      container.innerHTML = "";
+      menu.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "menu-card";
+        card.innerHTML = `
+          <img src="${item.img}" alt="${item.name}" />
+          <h3>${item.name}</h3>
+          <p>₹${item.price} - ${item.desc}</p>
+          <button onclick="addToCart(${item.id})">Add to order</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function addToCart(id) {
+      if(cart[id]) {
+        cart[id].quantity += 1;
+      } else {
+        const item = menu.find(m => m.id === id);
+        cart[id] = { ...item, quantity: 1 };
+      }
+      alert(`${cart[id].name} added to your order.`);
+      renderCart();
+    }
+
+    function renderCart() {
+      const orderList = document.getElementById("order-list");
+      orderList.innerHTML = "";
+      let total = 0;
+      for(let key in cart) {
+        let item = cart[key];
+        let subTotal = item.price * item.quantity;
+        total += subTotal;
+        let li = document.createElement("li");
+        li.textContent = `${item.name} x${item.quantity} = ₹${subTotal}`;
+        orderList.appendChild(li);
+      }
+      const totalEl = document.getElementById("total-price");
+      totalEl.textContent = `Total: ₹${total}`;
+    }
+
+    function submitOrder(e) {
+      e.preventDefault();
+      const name = e.target.name.value.trim();
+      const email = e.target.email.value.trim();
+      const table = e.target.table.value.trim();
+      if(Object.keys(cart).length === 0) {
+        alert("Please add at least one item to your order.");
+        return;
+      }
+      if(!name || !email || !table) {
+        alert("Please fill in all the required fields.");
+        return;
+      }
+      // Prepare order data
+      const orderItems = Object.values(cart).map(item => ({ name: item.name, quantity: item.quantity }));
+      const orderData = { name, email, table, order: orderItems };
+
+      // Replace the URL with your backend or Google Script URL for order processing
+      const backendURL = "YOUR_GOOGLE_SCRIPT_OR_BACKEND_URL";
+
+      fetch(backendURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData),
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(`✅ Order placed successfully! Row: ${data.row || "N/A"}`);
+        cart = {};
+        renderCart();
+        e.target.reset();
+      })
+      .catch(err => {
+        alert("Failed to place order. Please try again.");
+        console.error(err);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMenu();
+      document.getElementById("order-form").addEventListener("submit", submitOrder);
+      renderCart();
+    });
+  </script>
+</body>
+</html>
