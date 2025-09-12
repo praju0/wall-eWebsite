@@ -49,14 +49,14 @@
       text-shadow: 0 0 8px #00ffff;
     }
     main {
-      padding: 140px 20px 120px; /* Increased bottom padding from 80px to 120px */
+      padding: 140px 20px 120px;
       max-width: 1200px;
       margin: auto;
       flex-grow: 1;
     }
     section {
       margin-bottom: 80px;
-      scroll-margin-top: 120px; /* Space for fixed header on navigation */
+      scroll-margin-top: 120px;
     }
     h2 {
       border-bottom: 2px solid #00ffff;
@@ -178,7 +178,6 @@
       box-shadow: 0 -4px 10px #0057ff44;
       margin-top: auto;
     }
-    /* Responsive adjustments */
     @media (max-width: 600px) {
       header h1 {
         font-size: 1.4em;
@@ -188,7 +187,7 @@
         margin-left: 15px;
       }
       main {
-        padding: 100px 15px 100px; /* Increased bottom padding on mobile too */
+        padding: 100px 15px 100px;
       }
     }
   </style>
@@ -299,19 +298,16 @@
         alert("Please fill in all the required fields.");
         return;
       }
-      // Prepare order data
-      const orderItems = Object.values(cart).map(item => ({ name: item.name, quantity: item.quantity }));
-      const orderData = { name, email, table, order: orderItems };
-      // Replace the URL with your backend or Google Script URL for order processing
-      const backendURL = "https://script.google.com/macros/s/AKfycbzox2MacGW6hJVGleoldHW9aKiEflFj-1owHM0Jj1Tkdl4N8ptv4VMeS4ikn03k-2etDA/exec";
+      const backendURL = "http://<your_backend_ip>:5000/order"; // Replace with your Python backend IP
+      
       fetch(backendURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData),
+        body: JSON.stringify({ table: parseInt(table) })
       })
       .then(res => res.json())
       .then(data => {
-        alert(`✅ Order placed successfully! Row: ${data.row || "N/A"}`);
+        alert(`✅ Order placed successfully! Table sent: ${data.table_sent || "N/A"}`);
         cart = {};
         renderCart();
         e.target.reset();
@@ -328,93 +324,4 @@
     });
   </script>
 </body>
-  <script>
-  const menu = [
-    { id: 1, name: "Spicy Ramen", price: 120, desc: "A flavorful bowl with a kick.", img: "Spicy Ramen" },
-    { id: 2, name: "Veggie Pizza", price: 180, desc: "Fresh veggies on a crispy crust.", img: "veg pizza" },
-    { id: 3, name: "Classic Burger", price: 90, desc: "Juicy beef patty with fresh toppings.", img: "Burger" },
-    { id: 4, name: "Caesar Salad", price: 110, desc: "Fresh romaine with creamy dressing.", img: "Caesar Salad" },
-    { id: 5, name: "Mango Smoothie", price: 60, desc: "Sweet tropical mango blend.", img: "Mango Smoothie" },
-    { id: 6, name: "Chocolate Cake", price: 80, desc: "Rich and moist chocolate dessert.", img: "Chocolate Cake.png" }
-  ];
-  let cart = {};
-  function renderMenu() {
-    const container = document.querySelector(".menu-grid");
-    container.innerHTML = "";
-    menu.forEach(item => {
-      const card = document.createElement("div");
-      card.className = "menu-card";
-      card.innerHTML = `
-        <img src="${item.img}" alt="${item.name}" />
-        <h3>${item.name}</h3>
-        <p>₹${item.price} - ${item.desc}</p>
-        <button onclick="addToCart(${item.id})">Add to order</button>
-      `;
-      container.appendChild(card);
-    });
-  }
-  function addToCart(id) {
-    if(cart[id]) {
-      cart[id].quantity += 1;
-    } else {
-      const item = menu.find(m => m.id === id);
-      cart[id] = { ...item, quantity: 1 };
-    }
-    alert(`${cart[id].name} added to your order.`);
-    renderCart();
-  }
-  function renderCart() {
-    const orderList = document.getElementById("order-list");
-    orderList.innerHTML = "";
-    let total = 0;
-    for(let key in cart) {
-      let item = cart[key];
-      let subTotal = item.price * item.quantity;
-      total += subTotal;
-      let li = document.createElement("li");
-      li.textContent = `${item.name} x${item.quantity} = ₹${subTotal}`;
-      orderList.appendChild(li);
-    }
-    const totalEl = document.getElementById("total-price");
-    totalEl.textContent = `Total: ₹${total}`;
-  }
-  function submitOrder(e) {
-    e.preventDefault();
-    const name = e.target.name.value.trim();
-    const email = e.target.email.value.trim();
-    const table = e.target.table.value.trim();
-    if(Object.keys(cart).length === 0) {
-      alert("Please add at least one item to your order.");
-      return;
-    }
-    if(!name || !email || !table) {
-      alert("Please fill in all the required fields.");
-      return;
-    }
-    const backendURL = "http://<your_backend_ip>:5000/order"; // Replace with your Python backend IP
-    
-    fetch(backendURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ table: parseInt(table) })
-    })
-    .then(res => res.json())
-    .then(data => {
-      alert(`✅ Order placed successfully! Table sent: ${data.table_sent || "N/A"}`);
-      cart = {};
-      renderCart();
-      e.target.reset();
-    })
-    .catch(err => {
-      alert("Failed to place order. Please try again.");
-      console.error(err);
-    });
-  }
-  document.addEventListener("DOMContentLoaded", () => {
-    renderMenu();
-    document.getElementById("order-form").addEventListener("submit", submitOrder);
-    renderCart();
-  });
-</script>
-
 </html>
